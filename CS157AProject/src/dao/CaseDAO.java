@@ -1,7 +1,9 @@
 package src.dao;
+import src.model.Case;
+import java.util.List;
 
-import model.Case;
 import java.sql.*;
+import java.sql.Date;
 import java.util.*;
 
 public class CaseDAO {

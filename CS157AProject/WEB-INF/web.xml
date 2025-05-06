@@ -1,0 +1,19 @@
+<web-app>
+    <servlet>
+        <servlet-name>AddCaseServlet</servlet-name>
+        <servlet-class>src.servlets.AddCaseServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddCaseServlet</servlet-name>
+        <url-pattern>/addCase</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ListCasesServlet</servlet-name>
+        <servlet-class>src.servlets.ListCasesServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ListCasesServlet</servlet-name>
+        <url-pattern>/listCases</url-pattern>
+    </servlet-mapping>
+</web-app>
