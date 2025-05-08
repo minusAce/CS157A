@@ -1,7 +1,7 @@
 CREATE DATABASE IF NOT EXISTS forensics;
 USE forensics;
 
-CREATE TABLE CaseInfo (
+CREATE TABLE IF NOT EXISTS CaseInfo (
     CaseID INT PRIMARY KEY AUTO_INCREMENT,
     Title VARCHAR(100) NOT NULL,
     Description TEXT NOT NULL,
@@ -10,21 +10,21 @@ CREATE TABLE CaseInfo (
 );
 
 
-CREATE TABLE Evidence (
+CREATE TABLE IF NOT EXISTS Evidence (
     EvidenceID INT PRIMARY KEY AUTO_INCREMENT,
     Title VARCHAR(100) NOT NULL,
     Description TEXT NOT NULL,
     EvidenceType TEXT NOT NULL,
     DateCollected DATE NOT NULL,
-    EvidenceImage VARCHAR(255) NOT NULL -- Evidence image 
+    EvidenceImage VARCHAR(255) NOT NULL -- Evidence image
 );
-CREATE TABLE LawEnforcementPersonnel (
+CREATE TABLE IF NOT EXISTS LawEnforcementPersonnel (
     PersonnelID INT PRIMARY KEY AUTO_INCREMENT,
     Name VARCHAR(100) NOT NULL,
     Role TEXT NOT NULL
 );
 
-CREATE TABLE Suspects (
+CREATE TABLE IF NOT EXISTS Suspects (
     SuspectID INT PRIMARY KEY AUTO_INCREMENT,
     Name VARCHAR(100) NOT NULL,
     Address TEXT NOT NULL,
@@ -32,7 +32,7 @@ CREATE TABLE Suspects (
     HairColor TEXT NOT NULL
 );
 
-CREATE TABLE Location (
+CREATE TABLE IF NOT EXISTS Location (
     LocationID INT PRIMARY KEY AUTO_INCREMENT,
     StreetNo VARCHAR(100) NOT NULL,
     Street TEXT NOT NULL,
@@ -41,37 +41,39 @@ CREATE TABLE Location (
     ZIP TEXT NOT NULL
 );
 
-CREATE TABLE CaseEvidence{
+CREATE TABLE IF NOT EXISTS CaseEvidence (
     CaseID INT,
     EvidenceID INT,
     PRIMARY KEY (CaseID, EvidenceID),
-    FOREIGN KEY (CaseID) REFERENCES(CaseID),
+    FOREIGN KEY (CaseID) REFERENCES CaseInfo(CaseID),
     FOREIGN KEY (EvidenceID) REFERENCES Evidence(EvidenceID)
-};
+);
 
-CREATE TABLE CasePersonnel{
+CREATE TABLE IF NOT EXISTS CasePersonnel(
     CaseID INT,
     PersonnelID INT,
     PRIMARY KEY (CaseID, PersonnelID),
-    FOREIGN KEY (CaseID) REFERENCES(CaseID),
-    FOREIGN KEY (PersonnellID) REFERENCES LawEnforcementPersonnel(PersonnelID)
-};
+    FOREIGN KEY (CaseID) REFERENCES CaseInfo(CaseID),
+    FOREIGN KEY (PersonnelID) REFERENCES LawEnforcementPersonnel(PersonnelID)
+);
 
-CREATE TABLE CaseLocation{
+CREATE TABLE IF NOT EXISTS CaseLocation(
     CaseID INT,
     LocationID INT,
     PRIMARY KEY (CaseID, LocationID),
-    FOREIGN KEY (CaseID) REFERENCES(CaseID),
+    FOREIGN KEY (CaseID) REFERENCES CaseInfo(CaseID),
     FOREIGN KEY (LocationID) REFERENCES Location(LocationID)
-};
+);
 
-CREATE TABLE CaseSuspect{
+CREATE TABLE IF NOT EXISTS CaseSuspect (
     CaseID INT,
     SuspectID INT,
-    PRIMARY KEY (CaseID, SuspectID),
-    FOREIGN KEY (CaseID) REFERENCES(CaseID),
-    FOREIGN KEY (SuspectID) REFERENCES Suspects(SuspectID)
-};
+    PRIMARY KEY (CaseID , SuspectID),
+    FOREIGN KEY (CaseID)
+        REFERENCES CaseInfo (CaseID),
+    FOREIGN KEY (SuspectID)
+        REFERENCES Suspects (SuspectID)
+);
 
 INSERT INTO CaseInfo (Title, Description, DateOpened, DateClosed) VALUES
 ('Robbery', 'Bank robbery in San Jose', '2024-01-01', '2024-02-15'),
