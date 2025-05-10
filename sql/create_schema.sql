@@ -1,5 +1,5 @@
--- Active: 1746678650813@@127.0.0.1@3306@mysql
 CREATE DATABASE IF NOT EXISTS forensics;
+
 USE forensics;
 
 CREATE TABLE IF NOT EXISTS CaseInfo (
@@ -15,8 +15,7 @@ CREATE TABLE IF NOT EXISTS Evidence (
     Title VARCHAR(100) NOT NULL,
     Description TEXT NOT NULL,
     EvidenceType TEXT NOT NULL,
-    DateCollected DATE NOT NULL,
-    EvidenceImage VARCHAR(255) NOT NULL
+    DateCollected DATE NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS LawEnforcementPersonnel (
@@ -34,10 +33,10 @@ CREATE TABLE IF NOT EXISTS CaseEvidence (
 );
 
 CREATE TABLE IF NOT EXISTS ChainOfCustody (
-    CustodyID INT PRIMARY KEY AUTO_INCREMENT,
-    EvidenceID INT,
     PersonnelID INT,
-    DateCollected DATE NOT NULL,
-    FOREIGN KEY (EvidenceID) REFERENCES Evidence(EvidenceID),
-    FOREIGN KEY (PersonnelID) REFERENCES LawEnforcementPersonnel(PersonnelID)
+    EvidenceID INT,
+    DateLogged DATETIME,
+    PRIMARY KEY (PersonnelID, EvidenceID, DateLogged),
+    FOREIGN KEY (PersonnelID) REFERENCES LawEnforcementPersonnel(PersonnelID),
+    FOREIGN KEY (EvidenceID) REFERENCES Evidence(EvidenceID)
 );
