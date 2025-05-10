@@ -132,7 +132,7 @@ public class CaseDAO {
         try (Connection connection = getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(DELETE_CASEINFO_SQL)) {
             preparedStatement.setInt(1, caseID);
             rowDeleted = preparedStatement.executeUpdate() > 0;
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return rowDeleted;

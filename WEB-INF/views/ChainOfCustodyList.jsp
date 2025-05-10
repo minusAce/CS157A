@@ -47,7 +47,9 @@
                         <td><%= chain.getEvidenceID() %></td>
                         <td><%= chain.getDateLogged() %></td>
                         <td>
-                            <a href="<%= request.getContextPath() %>/chainofcustody/delete?personnelID=<%= chain.getPersonnelID() %>&evidenceID=<%= chain.getEvidenceID() %>&dateLogged=<%= chain.getDateLogged() %>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?');">Delete</a>
+                            <a href="<%= request.getContextPath() %>/chainofcustody/edit?personnelID=<%= chain.getPersonnelID() %>&evidenceID=<%= chain.getEvidenceID() %>&dateLogged=<%= chain.getDateLogged() %>">Edit</a>
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <a href="<%= request.getContextPath() %>/chainofcustody/delete?personnelID=<%= chain.getPersonnelID() %>&evidenceID=<%= chain.getEvidenceID() %>&dateLogged=<%= chain.getDateLogged() %>">Delete</a>
                         </td>
                     </tr>
                     <%

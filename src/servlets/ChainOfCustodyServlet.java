@@ -39,6 +39,12 @@ public class ChainOfCustodyServlet extends HttpServlet {
             case "/delete":
                 deleteChainOfCustody(request, response);
                 break;
+            case "/edit":
+                showEditForm(request, response);
+                break;
+            case "/update":
+                updateChainOfCustody(request, response);
+                break;
             default:
                 listChainOfCustody(request, response);
                 break;
@@ -79,6 +85,37 @@ public class ChainOfCustodyServlet extends HttpServlet {
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/ChainOfCustodyList.jsp");
         dispatcher.forward(request, response);
+    }
+
+    private void showEditForm(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        int personnelID = Integer.parseInt(request.getParameter("personnelID"));
+        int evidenceID = Integer.parseInt(request.getParameter("evidenceID"));
+        LocalDateTime dateLogged = LocalDateTime.parse(request.getParameter("dateLogged"));
+
+        ChainOfCustody chain = chainOfCustodyDAO.selectChainOfCustody(personnelID, evidenceID, dateLogged);
+        request.setAttribute("ChainOfCustody", chain);
+
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/ChainOfCustodyForm.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    private void updateChainOfCustody(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        int personnelID = Integer.parseInt(request.getParameter("personnelID"));
+        int evidenceID = Integer.parseInt(request.getParameter("evidenceID"));
+        LocalDateTime dateLogged = LocalDateTime.parse(request.getParameter("dateLogged"));
+
+        ChainOfCustody chain = new ChainOfCustody(personnelID, evidenceID, dateLogged);
+        boolean isUpdated = chainOfCustodyDAO.updateChainOfCustody(chain);
+
+        if (isUpdated) {
+            request.setAttribute("message", "Chain of Custody updated successfully.");
+        } else {
+            request.setAttribute("error", "Failed to update Chain of Custody.");
+        }
+
+        listChainOfCustody(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)

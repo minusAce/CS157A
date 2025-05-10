@@ -17,7 +17,9 @@ public class ChainOfCustodyDAO {
     private final String jdbcPass = "admin";
     private static final String INSERT_CHAIN_SQL = "INSERT INTO ChainOfCustody (PersonnelID, EvidenceID, DateLogged) VALUES (?, ?, ?);";
     private static final String SELECT_CHAIN_SQL = "SELECT * FROM ChainOfCustody";
+    private static final String SELECT_CHAIN_BY_ID_SQL = "SELECT * FROM ChainOfCustody WHERE PersonnelID = ? AND EvidenceID = ? AND DateLogged = ?;";
     private static final String DELETE_CHAIN_SQL = "DELETE FROM ChainOfCustody WHERE PersonnelID = ? AND EvidenceID = ? AND DateLogged = ?;";
+    private static final String UPDATE_CHAIN_SQL = "UPDATE ChainOfCustody SET EvidenceID = ?, DateLogged = ? WHERE PersonnelID = ?;";
 
     protected Connection getConnection() {
         Connection connection = null;
@@ -68,5 +70,40 @@ public class ChainOfCustodyDAO {
             e.printStackTrace();
         }
         return rowDeleted;
+    }
+
+    public boolean updateChainOfCustody(ChainOfCustody chain) {
+        boolean rowUpdated = false;
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_CHAIN_SQL)) {
+            preparedStatement.setInt(1, chain.getEvidenceID());
+            preparedStatement.setTimestamp(2, java.sql.Timestamp.valueOf(chain.getDateLogged()));
+            preparedStatement.setInt(3, chain.getPersonnelID());
+            rowUpdated = preparedStatement.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return rowUpdated;
+    }
+
+    public ChainOfCustody selectChainOfCustody(int personnelID, int evidenceID, java.time.LocalDateTime dateLogged) {
+        ChainOfCustody chain = null;
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_CHAIN_BY_ID_SQL)) {
+            preparedStatement.setInt(1, personnelID);
+            preparedStatement.setInt(2, evidenceID);
+            preparedStatement.setTimestamp(3, java.sql.Timestamp.valueOf(dateLogged));
+            ResultSet rs = preparedStatement.executeQuery();
+            if (rs.next()) {
+                chain = new ChainOfCustody(
+                    rs.getInt("PersonnelID"),
+                    rs.getInt("EvidenceID"),
+                    rs.getTimestamp("DateLogged").toLocalDateTime()
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return chain;
     }
 }

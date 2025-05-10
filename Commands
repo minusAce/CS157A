@@ -11,5 +11,4 @@ cd "C:\Program Files\Apache Software Foundation\Tomcat 9.0\bin"
 .\startup.bat
 .\shutdown.bat
 
-http://localhost:8080/CS157A/register
-http://localhost:8080/CS157A/logEvidence
+http://localhost:8080/CS157A/

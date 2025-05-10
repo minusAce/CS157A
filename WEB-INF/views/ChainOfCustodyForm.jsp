@@ -20,7 +20,8 @@
             <div class="form-group">
                 <label for="personnelID">Personnel ID</label>
                 <input type="number" class="form-control" id="personnelID" name="personnelID"
-                    value="<%= editing ? chainOfCustody.getPersonnelID() : "" %>" required>
+                    value="<%= editing ? chainOfCustody.getPersonnelID() : "" %>"
+                    <%= editing ? "readonly" : "" %> required>
             </div>
             <div class="form-group">
                 <label for="evidenceID">Evidence ID</label>
