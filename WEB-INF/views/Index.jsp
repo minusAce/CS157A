@@ -12,6 +12,7 @@
       <a href="evidence" class="list-group-item list-group-item-action">Evidence</a>
       <a href="caseevidence" class="list-group-item list-group-item-action">Case Evidence</a>
       <a href="lawEnforcementPersonnel" class="list-group-item list-group-item-action">Law Enforcement Personnel</a>
+      <a href="chainofcustody" class="list-group-item list-group-item-action">Chain of Custody</a>
     </div>
   </div>
 </body>
