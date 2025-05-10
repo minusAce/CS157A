@@ -1,4 +1,4 @@
-cd "D:\VSCode\CS157A\"
+cd "D:\VSCode\CS157A\CS157A\"
 
 javac -cp "C:\Program Files\Apache Software Foundation\Tomcat 9.0\lib\*;C:\Program Files\Apache Software Foundation\Tomcat 9.0\lib\mysql-connector-j-9.3.0.jar" -d WEB-INF\classes src\dao\*.java src\model\*.java src\servlets\*.java
 

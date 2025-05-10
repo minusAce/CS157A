@@ -67,3 +67,20 @@ INSERT INTO ChainOfCustody (PersonnelID, EvidenceID, DateLogged) VALUES
 (13, 13, '2023-01-15 22:00:00'),
 (14, 14, '2023-04-11 23:00:00'),
 (15, 15, '2023-05-25 00:00:00');
+
+INSERT INTO CaseEvidence (CaseID, EvidenceID) VALUES
+(1, 1),
+(2, 2),
+(3, 3),
+(4, 4),
+(5, 5),
+(6, 6),
+(7, 7),
+(8, 8),
+(9, 9),
+(10, 10),
+(11, 11),
+(12, 12),
+(13, 13),
+(14, 14),
+(15, 15);
