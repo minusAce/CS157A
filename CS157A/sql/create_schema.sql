@@ -28,8 +28,8 @@ CREATE TABLE IF NOT EXISTS CaseEvidence (
     CaseID INT,
     EvidenceID INT,
     PRIMARY KEY (CaseID, EvidenceID),
-    FOREIGN KEY (CaseID) REFERENCES CaseInfo(CaseID),
-    FOREIGN KEY (EvidenceID) REFERENCES Evidence(EvidenceID)
+    FOREIGN KEY (CaseID) REFERENCES CaseInfo(CaseID) ON DELETE CASCADE,
+    FOREIGN KEY (EvidenceID) REFERENCES Evidence(EvidenceID) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS ChainOfCustody (
@@ -37,6 +37,6 @@ CREATE TABLE IF NOT EXISTS ChainOfCustody (
     EvidenceID INT,
     DateLogged DATETIME,
     PRIMARY KEY (PersonnelID, EvidenceID, DateLogged),
-    FOREIGN KEY (PersonnelID) REFERENCES LawEnforcementPersonnel(PersonnelID),
-    FOREIGN KEY (EvidenceID) REFERENCES Evidence(EvidenceID)
+    FOREIGN KEY (PersonnelID) REFERENCES LawEnforcementPersonnel(PersonnelID) ON DELETE CASCADE,
+    FOREIGN KEY (EvidenceID) REFERENCES Evidence(EvidenceID) ON DELETE CASCADE
 );
