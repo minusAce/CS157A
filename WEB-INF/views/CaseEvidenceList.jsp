@@ -1,35 +1,62 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.util.List" %>
+<%@ page import="src.model.CaseEvidence" %>
+<%
+    List<CaseEvidence> listCaseEvidence = (List<CaseEvidence>) request.getAttribute("listCaseEvidence");
+%>
 <html>
 <head>
-    <title>Case Evidence List</title>
+    <title>Case Evidence Management</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 <body>
-    <div class="container mt-5">
-        <h1 class="text-center mb-4">Case Evidence List</h1>
-        <a href="register" class="btn btn-primary mb-3">Register New Case Evidence</a>
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>Case ID</th>
-                    <th>Evidence ID</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <c:forEach var="caseEvidence" items="${listCaseEvidence}">
+
+    <header>
+        <nav class="navbar navbar-expand-md navbar-dark" style="background-color: tomato">
+            <ul class="navbar-nav">
+                <li><a href="<%= request.getContextPath() %>/list" class="nav-link">Investigation System</a></li>
+            </ul>
+        </nav>
+    </header>
+    <br>
+
+    <div class="row">
+        <div class="container">
+            <h3 class="text-center">List of Case Evidence</h3>
+            <hr>
+            <div class="container text-left">
+                <a href="<%= request.getContextPath() %>/caseevidence/register" class="btn btn-success">Add New Case Evidence</a>
+            </div>
+            <br>
+            <table class="table table-bordered">
+                <thead>
                     <tr>
-                        <td>${caseEvidence.caseID}</td>
-                        <td>${caseEvidence.evidenceID}</td>
+                        <th>Case ID</th>
+                        <th>Evidence ID</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <%
+                        if (listCaseEvidence != null) {
+                            for (CaseEvidence caseEvidence : listCaseEvidence) {
+                    %>
+                    <tr>
+                        <td><%= caseEvidence.getCaseID() %></td>
+                        <td><%= caseEvidence.getEvidenceID() %></td>
                         <td>
-                            <a href="edit?caseID=${caseEvidence.caseID}" class="btn btn-warning btn-sm">Edit</a>
-                            <a href="delete?caseID=${caseEvidence.caseID}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?');">Delete</a>
+                            <a href="<%= request.getContextPath() %>/caseevidence/edit?caseID=<%= caseEvidence.getCaseID() %>">Edit</a>
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <a href="<%= request.getContextPath() %>/caseevidence/delete?caseID=<%= caseEvidence.getCaseID() %>">Delete</a>
                         </td>
                     </tr>
-                </c:forEach>
-            </tbody>
-        </table>
+                    <%
+                            }
+                        }
+                    %>
+                </tbody>
+            </table>
+        </div>
     </div>
 </body>
 </html>
