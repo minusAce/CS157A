@@ -1,0 +1,14 @@
+cd "D:\VSCode\CS157A\CS157A\"
+
+javac -cp "C:\Program Files\Apache Software Foundation\Tomcat 9.0\lib\*;C:\Program Files\Apache Software Foundation\Tomcat 9.0\lib\mysql-connector-j-9.3.0.jar" -d WEB-INF\classes src\dao\*.java src\model\*.java src\servlets\*.java
+
+jar cvf CS157A.war *
+
+move CS157A.war 'C:\Program Files\Apache Software Foundation\Tomcat 9.0\webapps' -Force
+
+cd "C:\Program Files\Apache Software Foundation\Tomcat 9.0\bin"
+
+.\startup.bat
+.\shutdown.bat
+
+http://localhost:8080/CS157A/
